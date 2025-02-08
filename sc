@@ -1,0 +1,230 @@
+repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+
+getgenv().Key = "2b955d2a0e1a8f0d22031c2c"
+getgenv().SettingFarm ={
+        ["Hide UI"] = true,
+        ["Reset Teleport"] = {
+            ["Enabled"] = true,
+            ["Delay Reset"] = 3,
+            ["Item Dont Reset"] = {
+                ["Fruit"] = {
+                    ["Enabled"] = true,
+                    ["All Fruit"] = true, 
+                    ["Select Fruit"] = {
+                        ["Enabled"] = true,
+                        ["Fruit"] = {
+				                  "Dragon-Dragon", "Kitsune-Kitsune", "Yeti-Yeti",
+                        	"Gas-Gas", "Leopard-Leopard", "Dough-Dough"
+			                  },
+                    },
+                },
+            },
+        },
+        ["White Screen"] = false,
+        ["Lock Fps"] = {
+            ["Enabled"] = false,
+            ["FPS"] = 20,
+        },
+        ["Get Items"] = {
+            ["Saber"] = true,
+            ["Godhuman"] =  true,
+            ["Skull Guitar"] = false,
+            ["Mirror Fractal"] = false,
+            ["Cursed Dual Katana"] = false,
+            ["Upgrade Race V2-V3"] = false,
+            ["Auto Pull Lever"] = false,
+        },
+        ["Select Hop"] = { -- 70% will have it
+            ["Hop Find Rip Indra Get Valkyrie Helm or Get Tushita"] = false, 
+            ["Hop Find Dough King Get Mirror Fractal"] = false,
+            ["Hop Find Raids Castle [CDK]"] = false,
+            ["Hop Find Cake Queen [CDK]"] = false,
+            ["Hop Find Soul Reaper [CDK]"] = false,
+            ["Hop Find Darkbeard [SG]"] = false,
+            ["Hop Find Mirage [ Pull Lever ]"] = false,
+        },
+        ["Buy Haki"] = {
+            ["Enhancement"] = true,
+            ["Skyjump"] = false,
+            ["Flash Step"] = false,
+            ["Observation"] = true,
+        },
+        ["Sniper Fruit Shop"] = {
+            ["Enabled"] = false, -- Auto Buy Fruit in Shop Mirage and Normal
+            ["Fruit"] = {"Leopard-Leopard","Kitsune-Kitsune","Dragon-Dragon","Yeti-Yeti","Gas-Gas"},
+        },
+        ["Lock Fruit"] = {
+		"Dragon-Dragon", "Kitsune-Kitsune", "Yeti-Yeti",
+        	"Leopard-Leopard", "Spirit-Spirit", "Gas-Gas",
+        	"Control-Control", "Venom-Venom", "Shadow-Shadow",
+        	"Dough-Dough", "T-Rex-T-Rex", "Mammoth-Mammoth",
+        	"Gravity-Gravity"
+	},
+        ["Webhook"] = {
+            ["Enabled"] = false,
+            ["WebhookUrl"] = "",
+        }
+    }
+
+
+task.spawn(function()
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaCat-kaitunBF.lua"))()
+    end)
+    if not success then end
+end)
+
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local LocalPlayer = Players.LocalPlayer
+
+local bloxFruitsID = 2753915549
+local popularGameIDs = { 2753915549, 6516141723, 286090429, 155615604, 2788229376 }
+
+local function hopToServer()
+    local success, errorMessage = pcall(function()
+        local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+        local response = HttpService:JSONDecode(game:HttpGet(url))
+        local servers = {}
+
+        for _, server in ipairs(response.data) do
+            if server.id ~= game.JobId and server.playing < server.maxPlayers then
+                table.insert(servers, server)
+            end
+        end
+
+        if #servers > 0 then
+            local bestServer = servers[math.random(#servers)]
+            TeleportService:TeleportToPlaceInstance(game.PlaceId, bestServer.id, LocalPlayer)
+        else
+            TeleportService:Teleport(game.PlaceId)
+        end
+    end)
+
+    if not success then end
+end
+
+task.spawn(function()
+    while true do
+        wait(60)
+        local myPosition = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character.HumanoidRootPart.Position
+        if myPosition then
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local distance = (myPosition - player.Character.HumanoidRootPart.Position).Magnitude
+                    if distance <= 30 then
+                        wait(60)
+                        hopToServer()
+                    end
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while true do
+        wait(math.random(7200, 18000))
+        TeleportService:Teleport(popularGameIDs[math.random(1, #popularGameIDs)], LocalPlayer)
+    end
+end)
+
+task.spawn(function()
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/skadidau/unfazedfree/refs/heads/main/bfchangeacc"))()
+    end)
+    if not success then end
+end)
+
+local messagesList = {
+    "Hi!", "What is your name?", "How are you?", "What's up?", "Hello!", "Anyone here?", "Good game!",
+    "Want to team up?", "Add me as a friend!", "Let's play together!", "Can you teach me this game?", "Anyone want to chat?",
+    "I just started, any tips?", "Where are you from?", "Nice to meet you!", "What's your favorite game?",
+    "Do you like this game?", "I'm having fun!", "Do you want to join my squad?", "Hey, let's explore together!",
+    "Can you show me around?", "I'm looking for a partner!", "Add me and let's grind together!", "Anyone up for some fun?",
+    "Let's be friends!", "Do you need help?", "I'm here to play!", "Can you share some tricks?", "This game is awesome!",
+    "Who's the best player here?", "What level are you?", "Have you defeated the latest boss?", "What fruit did you get?",
+    "Anybody selling a legendary sword?", "Looking for crew members to join my ship!", "Who wants to hunt for treasure?",
+    "Which sea are you sailing in right now?", "Got any cool outfits to trade?", "What's your toughest battle so far?",
+    "Have you completed any quests today?", "Can anyone help me level up?", "Looking to trade some items!",
+    "What's the rarest fruit you've found?", "Who is up for a raid?", "Any tips on finding Devil Fruits?",
+    "Where's the best place to farm EXP?", "Who's your favorite NPC?", "Anyone know where to find hidden islands?",
+    "Let's team up for the Grand Line!", "Need a navigator for my crew!", "What's your ship's name?",
+    "Does anyone have a map to the secret cave?", "Let's fight the sea beasts together!", "Who knows the recipe for the best potion?",
+    "How do you defeat the Kraken?", "Any glitches you've found in the game?", "Let's share some funny game moments!",
+    "Who's been the most helpful player you've met?", "Looking for a PvP battle, who's in?", "What's the hardest achievement you've unlocked?",
+    "Do you prefer fighting solo or in a team?", "What's the best strategy to use in the New World?",
+    "Who has the most powerful gear in the game?", "Anyone mastered the art of navigation yet?", "What's your longest survival streak?",
+    "How often do you play?", "Anyone want to explore the dungeons with me?", "Who here loves the thrill of the hunt?",
+    "Which boss was the toughest for you to defeat?", "I'm collecting unique items, got any leads?", "Does anyone want to form an alliance?",
+    "How can we overthrow the toughest pirate?", "What's the best way to earn gold quickly?", "Share your best in-game joke!",
+    "Can someone guide me through the Dark Seas?", "Is anyone here a master of sword fighting?", "What's the best crew to join for beginners?",
+    "Who can teach me advanced fighting techniques?", "What's the most challenging quest you've faced?", "I need a crew that's active at night, any suggestions?",
+    "What's your strategy for the upcoming event?", "Has anyone tried the new update yet?", "What are the top tips for new players here?",
+    "Who else is grinding to level up this weekend?", "What's the funniest glitch you've encountered?", "How do you manage your inventory effectively?",
+    "What's the secret to finding rare items?", "Who is the most notorious player in the game?", "Looking for someone to share resources with, interested?",
+    "Let's conquer the seas together!", "Need help with a difficult boss, can someone assist?", "Who's up for some intense PvP action today?",
+    "Got any pro tips for battling in the arenas?", "Who's got the best ship upgrades?", "Can someone explain the latest patch notes?",
+    "Looking for a high-level crew to join, any openings?", "What's the best part about playing this game?", "Who's the legendary pirate everyone talks about?",
+    "Need more friends to join my quest, are you in?", "What are your goals in the game right now?", "Let's make this game epic together!",
+    "Who's looking for rare fruits?", "Need a quick team for the treasure event, who's ready?", "How do you feel about the current state of the game?",
+    "What's the most epic battle you've been a part of?", "Looking for experts in sea navigation, any volunteers?", "What are the best skills to level up first?",
+    "Who wants to trade fruits right now?", "Looking for the best places to avoid in the seas", "Who needs a guide for the ancient ruins?",
+    "What's your ultimate goal in this game?", "Need advice on the best fruit combinations", "Who's the underdog hero of our server?",
+    "Can someone help with crafting the best weapons?", "What are your secrets to surviving in tough battles?", "How do you make the most out of your playtime?",
+    "Anyone interested in a game-wide scavenger hunt?", "What's the latest easter egg you found?", "Who has stories from their adventures to share?",
+    "Need tips for dealing with sea monsters", "Who's planning a raid soon?", "What's the fastest way to travel across islands?",
+    "Looking for a buddy to share loot with", "What's the most valuable lesson you've learned in this game?", "Who's mastered the art of trading?",
+    "Need some friends for late-night gaming sessions", "What's your favorite in-game moment?", "Who's up for challenges and competitions?",
+    "Got any strategies for newcomers?", "Who's the fiercest competitor in the server?", "What are the must-see spots in the game?",
+    "Looking for historical insights about the game world", "Need assistance on your journey?", "Who wants to share their game achievements?",
+    "Let's talk about the best in-game events", "Who's discovered hidden features in the game?", "Need a partner for exploring uncharted territories",
+    "What are the best tactics for defense in this game?", "Who else is excited about the upcoming updates?", "What's your story in this game world?",
+    "Looking for advice on managing game resources", "Who's the most strategic thinker here?", "Need help with building the best boat?",
+    "Who's got the best survival tips?", "What challenges are you facing right now in the game?", "Who wants to start a new adventure today?",
+    "What's the most underrated skill or item?", "Looking for the best gamer tips", "Who's ready for the next big challenge?"
+}
+
+task.spawn(function()
+    local success, err = pcall(function()
+        while true do
+            local randomMessage = messagesList[math.random(1, #messagesList)]
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(randomMessage, "All")
+            wait(math.random(10, 120))
+        end
+    end)
+    if not success then end
+end)
+
+task.spawn(function()
+    local success, err = pcall(function()
+        while true do
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer and not LocalPlayer:IsFriendsWith(player.UserId) then
+                    LocalPlayer:RequestFriendship(player)
+                end
+            end
+            wait(10)
+        end
+    end)
+    if not success then
+        warn("AutoSendFriendRequest failed:", err)
+    end
+end)
+
+task.spawn(function()
+    local success, err = pcall(function()
+        while true do
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer and player:IsFriendRequestSent() then
+                    LocalPlayer:AcceptFriendRequest(player)
+                end
+            end
+            wait(10)
+        end
+    end)
+    if not success then
+        warn("AutoAcceptFriendRequests failed:", err)
+    end
+end)
