@@ -13,9 +13,9 @@ getgenv().SettingFarm ={
                     ["Select Fruit"] = {
                         ["Enabled"] = true,
                         ["Fruit"] = {
-				                  "Dragon-Dragon", "Kitsune-Kitsune", "Yeti-Yeti",
+				"Dragon-Dragon", "Kitsune-Kitsune", "Yeti-Yeti",
                         	"Gas-Gas", "Leopard-Leopard", "Dough-Dough"
-			                  },
+			},
                     },
                 },
             },
